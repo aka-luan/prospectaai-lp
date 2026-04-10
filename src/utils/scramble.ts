@@ -2,7 +2,8 @@ export function createSlotMachineEffect(element: HTMLElement, duration: number =
     const text = element.textContent?.trim() || '';
     element.textContent = '';
     
-    text.split('').forEach((char, i) => {
+    let digitIndex = 0;
+    text.split('').forEach((char) => {
         const wrapper = document.createElement('span');
         if (/[0-9]/.test(char)) {
             wrapper.style.display = 'inline-block';
@@ -25,9 +26,12 @@ export function createSlotMachineEffect(element: HTMLElement, duration: number =
             wrapper.appendChild(inner);
             element.appendChild(wrapper);
             
+            const currentDigitIndex = digitIndex;
             setTimeout(() => {
                 inner.style.transform = `translateY(-${(10/11)*100}%)`;
-            }, initialDelay + (stagger * i));
+            }, initialDelay + (stagger * currentDigitIndex));
+            
+            digitIndex++;
         } else {
             wrapper.textContent = char;
             if (char === ' ') wrapper.innerHTML = '&nbsp;';
