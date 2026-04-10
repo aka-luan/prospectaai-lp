@@ -53,4 +53,39 @@
     mix-blend-mode: difference;
     transition: transform 0.1s ease-out;
   }
+
+  .anim-ticker-wrap {
+    display: flex !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  }
+  .anim-ticker {
+    flex-shrink: 0 !important;
+    min-width: 100% !important;
+    animation: anim-ticker-scroll 40s linear infinite !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim-ticker {
+      animation: none !important;
+    }
+  }
+  .anim-pricing-card {
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s, border-color 0.6s ease-out !important;
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim-pricing-card {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
+  .anim-border-pulse {
+    animation: anim-border-pulse-key 600ms ease-in-out forwards;
+  }
+  @keyframes anim-border-pulse-key {
+    0% { border-color: var(--color-primary); }
+    50% { border-color: rgba(0, 255, 135, 0.3); }
+    100% { border-color: var(--color-primary); }
+  }
 }

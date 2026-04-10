@@ -1,31 +1,95 @@
 ---
 ---
-<section class="grid grid-cols-1 md:grid-cols-3 min-h-[600px] border-b border-white/10">
-    <div class="relative p-12 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
-        <span class="bebas text-[15vw] absolute top-0 right-4 opacity-[0.04] leading-none pointer-events-none">01</span>
+<section class="how-it-works-section grid grid-cols-1 md:grid-cols-3 min-h-[600px] border-b border-white/10 relative">
+    <div class="how-it-works-col relative p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
+        <span class="bebas text-8xl md:text-[15vw] absolute top-4 right-4 md:top-0 md:right-4 opacity-[0.04] leading-none pointer-events-none">01</span>
         <div class="mt-auto">
-            <h3 class="bebas text-4xl mb-4 text-primary">NICHO + CIDADE</h3>
-            <p class="dm-mono text-secondary uppercase text-sm leading-relaxed">
+            <h3 class="bebas text-3xl md:text-4xl mb-4 text-primary">NICHO + CIDADE</h3>
+            <p class="dm-mono text-secondary uppercase text-xs md:text-sm leading-relaxed">
                 DEFINA QUEM VOCÊ QUER ATENDER. "RESTAURANTES EM SÃO PAULO" OU "OFICINAS EM CURITIBA". VOCÊ NO COMANDO.
             </p>
         </div>
     </div>
-    <div class="relative p-12 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
-        <span class="bebas text-[15vw] absolute top-0 right-4 opacity-[0.04] leading-none pointer-events-none">02</span>
+    <div class="how-it-works-col relative p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
+        <span class="bebas text-8xl md:text-[15vw] absolute top-4 right-4 md:top-0 md:right-4 opacity-[0.04] leading-none pointer-events-none">02</span>
         <div class="mt-auto">
-            <h3 class="bebas text-4xl mb-4 text-primary">A GENTE PROSPECTA</h3>
-            <p class="dm-mono text-secondary uppercase text-sm leading-relaxed">
+            <h3 class="bebas text-3xl md:text-4xl mb-4 text-primary">A GENTE PROSPECTA</h3>
+            <p class="dm-mono text-secondary uppercase text-xs md:text-sm leading-relaxed">
                 NOSSO ALGORITMO VARRE O GOOGLE MAPS EM TEMPO REAL. FILTRAMOS QUEM NÃO TEM SITE OU TEM SITE DESATUALIZADO.
             </p>
         </div>
     </div>
-    <div class="relative p-12 flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
-        <span class="bebas text-[15vw] absolute top-0 right-4 opacity-[0.04] leading-none pointer-events-none">03</span>
+    <div class="how-it-works-col relative p-8 md:p-12 flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
+        <span class="bebas text-8xl md:text-[15vw] absolute top-4 right-4 md:top-0 md:right-4 opacity-[0.04] leading-none pointer-events-none">03</span>
         <div class="mt-auto">
-            <h3 class="bebas text-4xl mb-4 text-primary">VOCÊ FECHA</h3>
-            <p class="dm-mono text-secondary uppercase text-sm leading-relaxed">
+            <h3 class="bebas text-3xl md:text-4xl mb-4 text-primary">VOCÊ FECHA</h3>
+            <p class="dm-mono text-secondary uppercase text-xs md:text-sm leading-relaxed">
                 RECEBA A LISTA COM WHATSAPP, E-MAIL E NOME DO PROPRIETÁRIO. É SÓ ENVIAR A PROPOSTA E ASSINAR O CONTRATO.
             </p>
         </div>
     </div>
 </section>
+
+<script>
+    const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!REDUCED_MOTION) {
+        const section = document.querySelector('.how-it-works-section') as HTMLElement;
+        if (section) {
+            const svgNS = 'http://www.w3.org/2000/svg';
+            const svg = document.createElementNS(svgNS, 'svg');
+            svg.setAttribute('class', 'absolute top-1/2 left-0 w-full h-[2px] -translate-y-1/2 pointer-events-none hidden md:block z-0');
+            svg.style.overflow = 'visible';
+            
+            const line = document.createElementNS(svgNS, 'line');
+            line.setAttribute('x1', '0');
+            line.setAttribute('y1', '0');
+            line.setAttribute('x2', '100%');
+            line.setAttribute('y2', '0');
+            line.setAttribute('stroke', '#a4ffb9');
+            line.setAttribute('stroke-width', '2');
+            
+            svg.appendChild(line);
+            section.insertBefore(svg, section.firstChild);
+            
+            const columns = section.querySelectorAll('.how-it-works-col');
+            columns.forEach(col => {
+                const el = col as HTMLElement;
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                el.style.zIndex = '1';
+                el.style.position = 'relative';
+                el.style.backgroundColor = 'var(--color-background)';
+            });
+
+            const onScroll = () => {
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                let progress = (windowHeight - rect.top) / (windowHeight * 0.8);
+                progress = Math.max(0, Math.min(1, progress));
+                
+                section.style.setProperty('--progress', progress.toString());
+                
+                const width = section.offsetWidth;
+                line.style.strokeDasharray = width.toString();
+                line.style.strokeDashoffset = (width * (1 - progress)).toString();
+                
+                columns.forEach((col, i) => {
+                    const el = col as HTMLElement;
+                    const triggerProgress = (i + 1) * 0.25; 
+                    if (progress > triggerProgress) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
+            
+            // Wait for next tick to ensure correct width
+            setTimeout(onScroll, 100);
+        }
+    }
+</script>

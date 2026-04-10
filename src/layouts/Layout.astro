@@ -26,21 +26,12 @@ const { title } = Astro.props;
 		<slot />
 
 		<script>
-			// Layout-level client logic for custom cursor
+			import { initLenis } from '../utils/lenis';
+			import { initTransitions } from '../utils/transition';
+
 			document.addEventListener("DOMContentLoaded", () => {
-				const cursor = document.createElement('div');
-				cursor.className = 'custom-cursor hidden md:block';
-				document.body.appendChild(cursor);
-
-				document.addEventListener('mousemove', (e) => {
-					cursor.style.left = e.clientX - 6 + 'px';
-					cursor.style.top = e.clientY - 6 + 'px';
-				});
-
-				document.querySelectorAll('button, a, .faq-header').forEach(el => {
-					el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
-					el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
-				});
+				initLenis();
+				initTransitions();
 			});
 		</script>
 	</body>
