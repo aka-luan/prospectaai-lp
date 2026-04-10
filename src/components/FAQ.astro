@@ -1,0 +1,87 @@
+---
+---
+<section class="py-32 px-6 border-t border-white/10 bg-surface-container-low">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="bebas text-6xl mb-16 text-center">PERGUNTAS FREQUENTES</h2>
+        <div class="space-y-0" id="faq-accordion">
+            <!-- Q1 -->
+            <div class="border-b border-white/10 py-8 cursor-pointer faq-item group">
+                <div class="flex justify-between items-center mb-4 faq-header">
+                    <h3 class="bebas text-[2vw] group-hover:text-primary transition-colors">COMO OS LEADS SÃO GERADOS?</h3>
+                    <span class="bebas text-4xl text-primary faq-icon">+</span>
+                </div>
+                <div class="faq-content h-0 overflow-hidden transition-all duration-300 opacity-0">
+                    <p class="dm-mono text-secondary uppercase text-sm mt-4">
+                        UTILIZAMOS UMA COMBINAÇÃO DE SCRAPING DE ALTA PERFORMANCE NO GOOGLE MAPS E VALIDAÇÃO DE DNS PARA IDENTIFICAR EMPRESAS QUE POSSUEM PRESENÇA DIGITAL NULA OU DEFICIENTE.
+                    </p>
+                </div>
+            </div>
+            <!-- Q2 -->
+            <div class="border-b border-white/10 py-8 cursor-pointer faq-item group">
+                <div class="flex justify-between items-center mb-4 faq-header">
+                    <h3 class="bebas text-[2vw] group-hover:text-primary transition-colors">PRECISO DE UM DOMÍNIO PRÓPRIO?</h3>
+                    <span class="bebas text-4xl text-primary faq-icon">+</span>
+                </div>
+                <div class="faq-content h-0 overflow-hidden transition-all duration-300 opacity-0">
+                    <p class="dm-mono text-secondary uppercase text-sm mt-4">
+                        SIM, PARA GARANTIR A ENTREGABILIDADE DOS SEUS E-MAILS DE PROSPECÇÃO, RECOMENDAMOS O USO DE UM DOMÍNIO PROFISSIONAL CONFIGURADO COM SPF, DKIM E DMARC.
+                    </p>
+                </div>
+            </div>
+            <!-- Q3 -->
+            <div class="border-b border-white/10 py-8 cursor-pointer faq-item group">
+                <div class="flex justify-between items-center mb-4 faq-header">
+                    <h3 class="bebas text-[2vw] group-hover:text-primary transition-colors">QUAL O TEMPO DE RESPOSTA MÉDIO?</h3>
+                    <span class="bebas text-4xl text-primary faq-icon">+</span>
+                </div>
+                <div class="faq-content h-0 overflow-hidden transition-all duration-300 opacity-0">
+                    <p class="dm-mono text-secondary uppercase text-sm mt-4">
+                        NOSSOS USUÁRIOS RELATAM RESPOSTAS EM ATÉ 24 HORAS QUANDO UTILIZAM NOSSA ABORDAGEM VIA WHATSAPP DIRETO PARA O PROPRIETÁRIO.
+                    </p>
+                </div>
+            </div>
+            <!-- Q4 -->
+            <div class="border-b border-white/10 py-8 cursor-pointer faq-item group">
+                <div class="flex justify-between items-center mb-4 faq-header">
+                    <h3 class="bebas text-[2vw] group-hover:text-primary transition-colors">POSSO CANCELAR A QUALQUER MOMENTO?</h3>
+                    <span class="bebas text-4xl text-primary faq-icon">+</span>
+                </div>
+                <div class="faq-content h-0 overflow-hidden transition-all duration-300 opacity-0">
+                    <p class="dm-mono text-secondary uppercase text-sm mt-4">
+                        COM CERTEZA. TRABALHAMOS COM ASSINATURAS MENSAIS SEM FIDELIDADE. SE NÃO ESTIVER SATISFEITO, CANCELA NO PAINEL COM UM CLIQUE.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const items = document.querySelectorAll('.faq-item');
+        
+        items.forEach(item => {
+            const header = item.querySelector('.faq-header');
+            const content = item.querySelector('.faq-content');
+            const icon = item.querySelector('.faq-icon');
+            
+            header.addEventListener('click', () => {
+                const isOpen = content.classList.contains('h-auto');
+                
+                // Close all
+                document.querySelectorAll('.faq-content').forEach(c => {
+                    c.classList.remove('h-auto', 'opacity-100');
+                    c.classList.add('h-0', 'opacity-0');
+                    c.parentElement.querySelector('.faq-icon').textContent = '+';
+                });
+                
+                // Toggle clicked
+                if (!isOpen) {
+                    content.classList.remove('h-0', 'opacity-0');
+                    content.classList.add('h-auto', 'opacity-100');
+                    icon.textContent = '-';
+                }
+            });
+        });
+    });
+</script>

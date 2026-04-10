@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+	</head>
+	<body class="bg-background selection:bg-primary selection:text-background overflow-x-hidden">
+		<div class="grain-overlay"></div>
+		
+		<slot />
+
+		<script>
+			// Layout-level client logic for custom cursor
+			document.addEventListener("DOMContentLoaded", () => {
+				const cursor = document.createElement('div');
+				cursor.className = 'custom-cursor hidden md:block';
+				document.body.appendChild(cursor);
+
+				document.addEventListener('mousemove', (e) => {
+					cursor.style.left = e.clientX - 6 + 'px';
+					cursor.style.top = e.clientY - 6 + 'px';
+				});
+
+				document.querySelectorAll('button, a, .faq-header').forEach(el => {
+					el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
+					el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+				});
+			});
+		</script>
+	</body>
+</html>
